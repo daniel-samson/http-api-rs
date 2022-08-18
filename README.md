@@ -7,3 +7,10 @@ Template project for creating REST API's in rust
 
 - Actix Web Server
 - OpenAPI (Swagger)
+
+## Development
+
+it is recommended that you use [cargo-watch](https://github.com/passcod/cargo-watch)
+```bash
+cargo watch -x 'run'
+```
