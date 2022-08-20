@@ -8,7 +8,7 @@ use utoipa::OpenApi;
 #[openapi(handlers(check_health))]
 struct ApiDoc;
 
-#[derive(Serialize, Clone, Component)]
+#[derive(Serialize, Component)]
 pub(super) enum HealthLevel {
     Operational,
     Deminished,
@@ -41,13 +41,13 @@ pub(super) async fn check_health(_req: HttpRequest) -> HttpResponse<BoxBody> {
 
 #[cfg(test)]
 mod tests {
-
     use actix_web::{
         http::{self, header::ContentType},
         test,
     };
 
     use super::*;
+
     #[actix_web::test]
     async fn test_index_ok() {
         let req = test::TestRequest::default()
