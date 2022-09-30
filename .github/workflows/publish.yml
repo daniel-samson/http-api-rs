@@ -21,46 +21,46 @@ jobs:
         args: --all-targets --all-features -- -D warnings
     - name: Run tests
       run: cargo test --verbose
-    - name: Run cargo-tarpaulin
-      uses: actions-rs/tarpaulin@v0.1
-      with:
-        args: '-- --test-threads 1'
-    - name: Upload to codecov.io
-      uses: codecov/codecov-action@v1.0.2
-      with:
-        token: ${{secrets.CODECOV_TOKEN}}
+#     - name: Run cargo-tarpaulin
+#       uses: actions-rs/tarpaulin@v0.1
+#       with:
+#         args: '-- --test-threads 1'
+#     - name: Upload to codecov.io
+#       uses: codecov/codecov-action@v1.0.2
+#       with:
+#         token: ${{secrets.CODECOV_TOKEN}}
 
-    - name: Archive code coverage results
-      uses: actions/upload-artifact@v1
-      with:
-        name: code-coverage-report
-        path: cobertura.xml
-  publish:
-    name: Publish
-    needs: build
-    runs-on: ubuntu-latest
-    if: ( github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' )
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions-rs/toolchain@v1
-      with:
-          toolchain: stable
-          override: true
-    - uses: actions/cache@v2
-      with:
-        path: |
-          ~/.cargo/bin/
-          ~/.cargo/registry/index/
-          ~/.cargo/registry/cache/
-          ~/.cargo/git/db/
-          target/
-        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-    - name: install cargo release
-      run: if [ ! -f ~/.cargo/bin/cargo-release ]; then cargo install cargo-release; fi;
-    - name: cargo release
-      run: |
-         git config --global user.name 'Git Hub Actions (rust)'
-         git config --global user.email '12231216+github-actions@users.noreply.github.com '
-         cargo release patch --execute --no-confirm --token $CARGO_REGISTRY_TOKEN
-      env:
-       CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+#     - name: Archive code coverage results
+#       uses: actions/upload-artifact@v1
+#       with:
+#         name: code-coverage-report
+#         path: cobertura.xml
+#   publish:
+#     name: Publish
+#     needs: build
+#     runs-on: ubuntu-latest
+#     if: ( github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' )
+#     steps:
+#     - uses: actions/checkout@v2
+#     - uses: actions-rs/toolchain@v1
+#       with:
+#           toolchain: stable
+#           override: true
+#     - uses: actions/cache@v2
+#       with:
+#         path: |
+#           ~/.cargo/bin/
+#           ~/.cargo/registry/index/
+#           ~/.cargo/registry/cache/
+#           ~/.cargo/git/db/
+#           target/
+#         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+#     - name: install cargo release
+#       run: if [ ! -f ~/.cargo/bin/cargo-release ]; then cargo install cargo-release; fi;
+#     - name: cargo release
+#       run: |
+#          git config --global user.name 'Git Hub Actions (rust)'
+#          git config --global user.email '12231216+github-actions@users.noreply.github.com '
+#          cargo release patch --execute --no-confirm --token $CARGO_REGISTRY_TOKEN
+#       env:
+#        CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}

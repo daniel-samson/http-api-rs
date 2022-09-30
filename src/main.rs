@@ -1,6 +1,7 @@
+pub mod entities;
+pub mod env;
 pub mod health;
 
-use std::env;
 use std::{error::Error, net::Ipv4Addr};
 
 use actix_web::body::BoxBody;
@@ -10,6 +11,7 @@ use actix_web::{HttpRequest, HttpResponse};
 use utoipa::OpenApi;
 use utoipa_swagger_ui::{SwaggerUi, Url};
 
+use env::env_port_number;
 use health::{health_config, HealthCheck, HealthLevel};
 
 #[actix_web::main]
@@ -18,8 +20,8 @@ async fn main() -> Result<(), impl Error> {
 
     let port_number = env_port_number();
     println!(
-        "Listening on port {x} eg. http://localhost:{x}",
-        x = port_number
+        "Listening on port {port_number} eg. http://localhost:{port_number}",
+        port_number = port_number
     );
     println!(
         "Swagger UI eg. http://localhost:{}/swagger-ui/",
@@ -43,14 +45,6 @@ async fn main() -> Result<(), impl Error> {
     .bind((Ipv4Addr::UNSPECIFIED, port_number))?
     .run()
     .await
-}
-
-fn env_port_number() -> u16 {
-    let key = "PORT";
-    match env::var(key) {
-        Ok(val) => val.parse().unwrap(),
-        Err(_e) => 9090,
-    }
 }
 
 pub(self) async fn hello(_req: HttpRequest) -> HttpResponse<BoxBody> {
