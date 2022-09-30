@@ -7,8 +7,7 @@ dev:
 # run before `make entities`  
 migrate:
 	touch sqlite.db
-	DATABASE_URL=sqlite:./sqlite.db
-	sea-orm-cli migrate up
+	DATABASE_URL=sqlite:./sqlite.db sea-orm-cli migrate up
 
 entities:
 	DATABASE_URL=sqlite:./sqlite.db sea-orm-cli generate entity -u sqlite:./sqlite.db -o src/entities
