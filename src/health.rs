@@ -1,9 +1,15 @@
+use std::time::{SystemTime, UNIX_EPOCH};
 use actix_web::body::BoxBody;
 use actix_web::{web, HttpRequest, HttpResponse};
+use futures::executor::block_on;
+use sea_orm::{Database, DbErr, EntityTrait, ActiveValue};
 use serde::Serialize;
 use utoipa::Component;
 use utoipa::OpenApi;
+use log::error;
 
+use crate::env::env_database_url;
+use crate::entities::{prelude::*, *};
 #[derive(OpenApi)]
 #[openapi(handlers(check_health))]
 struct ApiDoc;
@@ -19,6 +25,8 @@ pub(super) enum HealthLevel {
 pub(super) struct HealthCheck {
     #[component(example = "Operational")]
     rest_api: HealthLevel,
+    #[component(example = "Operational")]
+    database: HealthLevel,
 }
 
 pub(super) fn health_config(cfg: &mut web::ServiceConfig) {
@@ -33,10 +41,49 @@ pub(super) fn health_config(cfg: &mut web::ServiceConfig) {
     )
 )]
 pub(super) async fn check_health(_req: HttpRequest) -> HttpResponse<BoxBody> {
-    let obj = HealthCheck {
+    let mut health = HealthCheck {
         rest_api: HealthLevel::Operational,
+        database: HealthLevel::Operational
     };
-    HttpResponse::Ok().json(web::Json(obj))
+
+    if let Err(error) = block_on(check_database_connection()) {
+        health.database =  HealthLevel::Critical;
+        error!("database health critical: {}", error);
+    }
+
+    if let Err(error) = block_on(check_database_query()) {
+        health.database =  HealthLevel::Deminished;
+        error!("database health critical: {}", error);
+    }
+
+
+
+    HttpResponse::Ok().json(web::Json(health))
+}
+
+async fn check_database_connection() -> Result<(), DbErr> {    
+    Database::connect(env_database_url()).await?;
+
+    Ok(())
+}
+
+async fn check_database_query() -> Result<(), DbErr> {    
+    let db = Database::connect(env_database_url()).await?;
+
+    let start = SystemTime::now();
+    let since_the_epoch = start
+        .duration_since(UNIX_EPOCH)
+        .expect("Time went backwards");
+
+    let model = audit::ActiveModel {
+        id: ActiveValue::NotSet,
+        created_at: ActiveValue::Set(since_the_epoch.as_secs_f64().to_string()),
+        data: ActiveValue::Set("{\"type\":\"healthcheck\"}".to_owned()),
+    };
+
+    Audit::insert(model).exec(&db).await?;
+
+    Ok(())
 }
 
 #[cfg(test)]

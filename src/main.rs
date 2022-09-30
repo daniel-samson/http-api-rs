@@ -1,5 +1,7 @@
-mod env;
+pub mod env;
 pub mod health;
+pub mod entities;
+
 
 use std::{error::Error, net::Ipv4Addr};
 
@@ -19,8 +21,8 @@ async fn main() -> Result<(), impl Error> {
 
     let port_number = env_port_number();
     println!(
-        "Listening on port {x} eg. http://localhost:{x}",
-        x = port_number
+        "Listening on port {port_number} eg. http://localhost:{port_number}",
+        port_number = port_number
     );
     println!(
         "Swagger UI eg. http://localhost:{}/swagger-ui/",
