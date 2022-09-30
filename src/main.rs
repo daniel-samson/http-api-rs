@@ -1,7 +1,6 @@
+pub mod entities;
 pub mod env;
 pub mod health;
-pub mod entities;
-
 
 use std::{error::Error, net::Ipv4Addr};
 

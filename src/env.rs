@@ -17,9 +17,9 @@ pub fn env_port_number() -> u16 {
     }
 }
 
-pub fn env_database_url() -> String{
-    match  env::var(KEY_DATABASE_URL) {
+pub fn env_database_url() -> String {
+    match env::var(KEY_DATABASE_URL) {
         Ok(val) => val,
-        Err(_e) => "sqlite::memory:".to_string()
+        Err(_e) => "sqlite::memory:".to_string(),
     }
 }

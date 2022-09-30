@@ -1,15 +1,15 @@
-use std::time::{SystemTime, UNIX_EPOCH};
 use actix_web::body::BoxBody;
 use actix_web::{web, HttpRequest, HttpResponse};
 use futures::executor::block_on;
-use sea_orm::{Database, DbErr, EntityTrait, ActiveValue};
+use log::error;
+use sea_orm::{ActiveValue, Database, DbErr, EntityTrait};
 use serde::Serialize;
+use std::time::{SystemTime, UNIX_EPOCH};
 use utoipa::Component;
 use utoipa::OpenApi;
-use log::error;
 
-use crate::env::env_database_url;
 use crate::entities::{prelude::*, *};
+use crate::env::env_database_url;
 #[derive(OpenApi)]
 #[openapi(handlers(check_health))]
 struct ApiDoc;
@@ -43,31 +43,29 @@ pub(super) fn health_config(cfg: &mut web::ServiceConfig) {
 pub(super) async fn check_health(_req: HttpRequest) -> HttpResponse<BoxBody> {
     let mut health = HealthCheck {
         rest_api: HealthLevel::Operational,
-        database: HealthLevel::Operational
+        database: HealthLevel::Operational,
     };
 
     if let Err(error) = block_on(check_database_connection()) {
-        health.database =  HealthLevel::Critical;
+        health.database = HealthLevel::Critical;
         error!("database health critical: {}", error);
     }
 
     if let Err(error) = block_on(check_database_query()) {
-        health.database =  HealthLevel::Deminished;
+        health.database = HealthLevel::Deminished;
         error!("database health critical: {}", error);
     }
-
-
 
     HttpResponse::Ok().json(web::Json(health))
 }
 
-async fn check_database_connection() -> Result<(), DbErr> {    
+async fn check_database_connection() -> Result<(), DbErr> {
     Database::connect(env_database_url()).await?;
 
     Ok(())
 }
 
-async fn check_database_query() -> Result<(), DbErr> {    
+async fn check_database_query() -> Result<(), DbErr> {
     let db = Database::connect(env_database_url()).await?;
 
     let start = SystemTime::now();

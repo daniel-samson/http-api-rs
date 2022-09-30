@@ -14,9 +14,9 @@ impl MigrationTrait for Migration {
                     .col(
                         ColumnDef::new(Audit::Id)
                             .integer()
-                            .not_null()          
+                            .not_null()
                             .auto_increment()
-                            .primary_key()
+                            .primary_key(),
                     )
                     .col(ColumnDef::new(Audit::CreatedAt).not_null().timestamp())
                     .col(ColumnDef::new(Audit::Data).json().not_null())
@@ -38,5 +38,5 @@ enum Audit {
     Table,
     Id,
     CreatedAt,
-    Data
+    Data,
 }
