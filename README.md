@@ -83,3 +83,10 @@ or to automatically fix style issues run:
 ```bash
 # make fix
 ```
+
+
+## Documentation
+
+- [SeaQL ORM Tutorial](https://www.sea-ql.org/sea-orm-tutorial/ch00-00-introduction.html)
+- [SeaQL Orm Docs](https://www.sea-ql.org/SeaORM/docs/index/)
+- [Utoipa Docs - swagger generation](https://docs.rs/utoipa/2.2.0/utoipa/)
