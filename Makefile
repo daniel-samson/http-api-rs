@@ -14,6 +14,11 @@ entities:
 
 test:
 	cargo test
+lint:
+	cargo clippy
+
+fix:
+	cargo clippy --fix
 
 cleandb:
 	rm sqlite.db
