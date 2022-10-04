@@ -35,7 +35,7 @@ cargo watch -x 'run'
 ```
 
 ## Environment variables
-Please check [src/env.rs](src/env.rs) for a list of enviroment variables.
+Please check [src/env.rs](src/env.rs) for a list of environment variables.
 
 ### Set up database
 To create database run:
