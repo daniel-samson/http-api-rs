@@ -70,7 +70,7 @@ you should see successfull response eg
 
 To troubleshoot any issues. Please see the stdout from the dev server.
 
-### Lint
+## Lint
 
 Before making pull requests, you must use cargo clippy to check that your code meets the coding standards. You can run:
 
