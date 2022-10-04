@@ -1,8 +1,10 @@
 all:
-	cargo build
+	cargo build --release
 
 dev:
 	DATABASE_URL=sqlite:./sqlite.db cargo run
+start:
+	cargo run --release
 
 # run before `make entities`  
 migrate:
