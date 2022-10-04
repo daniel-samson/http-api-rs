@@ -70,3 +70,16 @@ you should see successfull response eg
 
 To troubleshoot any issues. Please see the stdout from the dev server.
 
+### Lint
+
+Before making pull requests, you must use cargo clippy to check that your code meets the coding standards. You can run:
+
+```bash
+# make lint
+```
+
+or to automatically fix style issues run:
+
+```bash
+# make fix
+```
