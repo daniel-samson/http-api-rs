@@ -8,6 +8,7 @@ Template project for creating REST API's in rust
 - Actix Web Server
 - OpenAPI (SwaggerUI) Documentation
 - SeaQL ORM
+- [Log](https://docs.rs/log/latest/log/index.html) with [env_logger](https://docs.rs/env_logger/0.9.1/env_logger/)
 
 ## Project Status
 

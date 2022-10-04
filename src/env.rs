@@ -9,6 +9,10 @@ const KEY_PORT: &str = "PORT";
 /// sqlite:./sqlite.db?mode=rwc
 /// sqlite::memory:
 const KEY_DATABASE_URL: &str = "DATABASE_URL";
+// Set the log level
+// see https://docs.rs/env_logger/latest/env_logger/ for details
+#[allow(dead_code)]
+const KEY_RUST_LOG: &str = "RUST_LOG";
 
 pub fn env_port_number() -> u16 {
     match env::var(KEY_PORT) {
