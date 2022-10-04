@@ -9,6 +9,9 @@ Template project for creating REST API's in rust
 - OpenAPI (SwaggerUI) Documentation
 - SeaQL ORM
 
+## Project Status
+[![CI](https://github.com/daniel-samson/http-api-rs/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/daniel-samson/http-api-rs/actions/workflows/ci.yml)
+
 ## Development
 
 ### Pre-requisites
