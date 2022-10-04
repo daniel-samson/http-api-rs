@@ -21,9 +21,6 @@ Please install the following packages:
 ```bash
 cargo install sea-orm-cli
 cargo install cargo-watch
-cargo install cargo-check
-# update your rust version or
-rustup component add clippy
 ```
 
 ## Watch for changes
