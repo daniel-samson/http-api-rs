@@ -53,7 +53,7 @@ pub(super) async fn check_health(_req: HttpRequest) -> HttpResponse<BoxBody> {
 
     if let Err(error) = block_on(check_database_query()) {
         health.database = HealthLevel::Deminished;
-        error!("database health critical: {}", error);
+        error!("database health diminished: {}", error);
     }
 
     HttpResponse::Ok().json(web::Json(health))
