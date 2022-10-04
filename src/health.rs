@@ -5,27 +5,21 @@ use log::error;
 use sea_orm::{ActiveValue, Database, DbErr, EntityTrait};
 use serde::Serialize;
 use std::time::{SystemTime, UNIX_EPOCH};
-use utoipa::Component;
-use utoipa::OpenApi;
+use utoipa::ToSchema;
 
 use crate::entities::{prelude::*, *};
-use crate::env::env_database_url;
-#[derive(OpenApi)]
-#[openapi(handlers(check_health))]
-struct ApiDoc;
+use crate::env::env_database_url;   
 
-#[derive(Serialize, Component)]
+#[derive(Serialize, ToSchema)]
 pub(super) enum HealthLevel {
     Operational,
     Deminished,
     Critical,
 }
 
-#[derive(Component, Serialize)]
+#[derive(Serialize, ToSchema)]
 pub(super) struct HealthCheck {
-    #[component(example = "Operational")]
     rest_api: HealthLevel,
-    #[component(example = "Operational")]
     database: HealthLevel,
 }
 
