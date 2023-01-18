@@ -13,7 +13,7 @@ env_logger = "0.10.0"
 log = "0.4"
 futures = "0.3"
 utoipa = { version = "2", features = ["actix_extras"] }
-utoipa-swagger-ui = { version = "2", features = ["actix-web"] }
+utoipa-swagger-ui = { version = "3", features = ["actix-web"] }
 sea-orm = { version = "^0.10.6", features = [ "sqlx-sqlite", "runtime-actix-rustls", "macros", "mock" ] }
 
 [workspace]
