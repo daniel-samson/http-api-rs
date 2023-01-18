@@ -89,5 +89,5 @@ or to automatically fix style issues run:
 ## Documentation
 
 - [SeaQL ORM Tutorial](https://www.sea-ql.org/sea-orm-tutorial/ch00-00-introduction.html)
-- [SeaQL Orm Docs](https://www.sea-ql.org/SeaORM/docs/index/)
+- [SeaQL ORM Docs](https://www.sea-ql.org/SeaORM/docs/index/)
 - [Utoipa Docs - swagger generation](https://docs.rs/utoipa/latest/utoipa/)
