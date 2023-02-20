@@ -29,7 +29,10 @@ async fn main() -> Result<(), impl Error> {
     );
 
     #[derive(OpenApi)]
-    #[openapi(paths(health::check_health), components(schemas(HealthCheck, HealthLevel)))]
+    #[openapi(
+        paths(health::check_health),
+        components(schemas(HealthCheck, HealthLevel))
+    )]
     struct ApiDocV1;
 
     HttpServer::new(move || {

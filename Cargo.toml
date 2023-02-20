@@ -14,7 +14,7 @@ log = "0.4"
 futures = "0.3"
 utoipa = { version = "3", features = ["actix_extras"] }
 utoipa-swagger-ui = { version = "3", features = ["actix-web"] }
-sea-orm = { version = "^0.10.7", features = [ "sqlx-sqlite", "runtime-actix-rustls", "macros", "mock" ] }
+sea-orm = { version = "^0.11.0", features = [ "sqlx-sqlite", "runtime-actix-rustls", "macros", "mock" ] }
 
 [workspace]
 members = [".", "migration"]
