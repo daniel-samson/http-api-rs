@@ -8,7 +8,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use utoipa::ToSchema;
 
 use crate::entities::{prelude::*, *};
-use crate::env::env_database_url;   
+use crate::env::env_database_url;
 
 #[derive(Serialize, ToSchema)]
 pub(super) enum HealthLevel {
