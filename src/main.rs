@@ -50,7 +50,7 @@ async fn main() -> Result<(), impl Error> {
     .await
 }
 
-pub(self) async fn hello(_req: HttpRequest) -> HttpResponse<BoxBody> {
+async fn hello(_req: HttpRequest) -> HttpResponse<BoxBody> {
     HttpResponse::Ok()
         .content_type(ContentType::plaintext())
         .body("Hello World!".to_string())
