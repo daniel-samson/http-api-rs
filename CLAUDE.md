@@ -50,9 +50,10 @@ http-api-rs is a REST API template built in Rust using Actix Web. It demonstrate
 
 ### Database Layer
 
-**ORM**: SeaORM (`sea_orm` v0.12.12+)
+**ORM**: SeaORM (`sea_orm` v1.1.19)
 - Supports SQLite, MySQL, PostgreSQL via feature flags
 - Entities are auto-generated from migrations
+- **Version 1.x**: Major upgrade from 0.12.x with enhanced query capabilities, refined insertion workflows, and improved partial model functionality
 
 **Migrations**: Located in `migration/` workspace member
 - Uses SeaORM migration system
@@ -104,11 +105,12 @@ http-api-rs is a REST API template built in Rust using Actix Web. It demonstrate
 ## Dependencies
 
 **Key Crates**
-- `actix-web` (4.x) - Web framework
-- `sea-orm` (0.12.12+) - ORM for database operations
-- `utoipa` (4.x) - OpenAPI/Swagger code generation
-- `serde` - Serialization/deserialization for JSON
-- `log` / `env_logger` - Logging infrastructure
+- `actix-web` (4.4.0) - Web framework
+- `sea-orm` (1.1.19) - ORM for database operations
+- `utoipa` (5.4.0) - OpenAPI/Swagger code generation with OpenAPI 3.1 support
+- `utoipa-swagger-ui` (9.0.2) - Swagger UI integration
+- `serde` (1.0.228) - Serialization/deserialization for JSON
+- `log` / `env_logger` (0.11.0) - Logging infrastructure
 
 See `Cargo.toml` for complete dependency list and versions.
 
